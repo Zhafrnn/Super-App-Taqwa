@@ -1,10 +1,30 @@
+import 'dart:async'; // Timer Countdown
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart'; // Carousel Slider
+import 'package:http/http.dart' as http; // ambil data API json
+import 'dart:convert'; // Decode json
+import 'package:geolocator/geolocator.dart'; // GPS
+import 'package:geocoding/geocoding.dart'; // Konversi GPS
+import 'package:intl/intl.dart'; // Formatter Number
+import 'package:permission_handler/permission_handler.dart'; // Izin Handler
+import 'package:shared_preferences/shared_preferences.dart'; // Cache Lokal
+import 'package:string_similarity/string_similarity.dart'; // Fuzzy match Karanganyar = Karanganyar
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final CarouselController _controller = CarouselController();
+  int _curentIndex = 0;
+
   final posterList = const <String>[
-    
+    'assets/images/ramadhan-kareem.jpg',
+    'assets/images/idl-fitr.jpg',
+    'assets/images/idl-adha.jpg',
   ];
 
   @override
@@ -16,7 +36,7 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                width: double.infinity ,
+                width: double.infinity,
                 height: 130,
                 decoration: BoxDecoration(
                   color: Colors.amber,
@@ -27,9 +47,7 @@ class HomePage extends StatelessWidget {
                   child: Row(
                     children: <Widget>[
                       InkWell(
-                        onTap: () {
-                          
-                        },
+                        onTap: () {},
                         child: Container(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,9 +65,7 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          
-                        },
+                        onTap: () {},
                         child: Container(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -67,14 +83,14 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          
-                        },
+                        onTap: () {},
                         child: Container(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Image.asset('assets/images/ic_menu_jadwal_sholat.png'),
+                              Image.asset(
+                                'assets/images/ic_menu_jadwal_sholat.png',
+                              ),
                               Text(
                                 'Jadwal Sholat',
                                 style: TextStyle(
@@ -87,14 +103,14 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          
-                        },
+                        onTap: () {},
                         child: Container(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Image.asset('assets/images/ic_menu_video_kajian.png'),
+                              Image.asset(
+                                'assets/images/ic_menu_video_kajian.png',
+                              ),
                               Text(
                                 'Video Kajian',
                                 style: TextStyle(
@@ -111,9 +127,31 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
+            // ===========================================
+            // Carousel Section
+            // ===========================================
+            _buildCarouselSection(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildCarouselSection() {
+    return Column(
+      children: [
+        const SizedBox(height: 20),
+        CarouselSlider.builder(
+          itemCount: posterList.length,
+          itemBuilder: (context, index, realIndex) {
+            final poster = posterList[index];
+            return Container(
+              child: Image.asset(poster),
+            );
+          },
+          options: CarouselOptions(),
+        ),
+      ],
     );
   }
 }
