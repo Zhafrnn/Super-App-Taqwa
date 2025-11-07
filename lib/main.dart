@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         // '/zakat' nama route dari halaman Zakat
         '/':(context) => HomePage(),
         'Zakat':(context) => HomePage(),
+        'Doa':(context) => HomePage(),
       },
     );
   }
