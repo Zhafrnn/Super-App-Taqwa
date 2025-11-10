@@ -50,16 +50,35 @@ class _HomePageState extends State<HomePage> {
   // ====================================================
   // MENU ITEM WIDGET
   // ====================================================
-  Widget _buildMenuItem(
-    String iconPath,
-    String tittle,
-    String routeName
-  ) {
-    return Column(
-      children: [
-        Image.asset(iconPath,width: 35,),
-        Text(tittle),
-      ],
+  Widget _buildMenuItem(String iconPath, String tittle, String routeName) {
+    return InkWell(
+      onTap: () {
+        
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(iconPath, width: 35),
+            SizedBox(height: 6),
+            Text(
+              tittle,
+              style: TextStyle(fontFamily: 'PoppinsRegular', fontSize: 13),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -75,24 +94,20 @@ class _HomePageState extends State<HomePage> {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           _buildMenuItem(
-            'assets/images/ic_menu_doa.png',// iconPath
-            'Doa Harian',// title
-            '/doa'//routeName
+            'assets/images/ic_menu_doa.png', // iconPath
+            'Doa Harian', // title
+            '/doa', //routeName
           ),
-          _buildMenuItem(
-            'assets/images/ic_menu_zakat.png',
-            'Zakat',
-            '/zakat'
-          ),
+          _buildMenuItem('assets/images/ic_menu_zakat.png', 'Zakat', '/zakat'),
           _buildMenuItem(
             'assets/images/ic_menu_video_kajian.png',
             'Video Kajian',
-            '/video_kajian'
+            '/video_kajian',
           ),
           _buildMenuItem(
             'assets/images/ic_menu_Jadwal_sholat.png',
             'Jadwal Sholat',
-            '/jadwal_sholat'
+            '/jadwal_sholat',
           ),
         ],
       ),
